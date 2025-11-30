@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Внутренний Север — Инструмент навигации для вашей практики</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c5f7c 0%, #1a3a4d 100%);
+            color: white;
+            padding: 80px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 L90 90 L10 90 Z" fill="rgba(255,255,255,0.03)"/></svg>') repeat;
+            opacity: 0.4;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+
+        .not-therapy {
+            font-size: 16px;
+            opacity: 0.8;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.1);
+            border-left: 3px solid rgba(255,255,255,0.5);
+            margin-top: 32px;
+            border-radius: 4px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-alt {
+            background: #f8f9fa;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #1a3a4d;
+        }
+
+        .section-intro {
+            font-size: 18px;
+            color: #5a5a5a;
+            margin-bottom: 48px;
+            max-width: 800px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            border-color: #2c5f7c;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2c5f7c 0%, #1a3a4d 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a3a4d;
+        }
+
+        .feature-description {
+            color: #5a5a5a;
+            line-height: 1.7;
+        }
+
+        /* Not Section */
+        .not-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .not-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #e74c3c;
+        }
+
+        .not-icon {
+            font-size: 20px;
+            color: #e74c3c;
+            flex-shrink: 0;
+        }
+
+        /* Benefits */
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .benefit-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c5f7c;
+            opacity: 0.3;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #1a3a4d;
+        }
+
+        .benefit-content p {
+            color: #5a5a5a;
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2c5f7c 0%, #1a3a4d 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: #2c5f7c;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* Quote */
+        .quote-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 4px solid #2c5f7c;
+            margin: 48px 0;
+            font-size: 20px;
+            font-style: italic;
+            color: #1a3a4d;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 48px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">⭐</div>
+                Внутренний Север
+            </div>
+            <h1>Инструмент навигации,<br>а не замена терапии</h1>
+            <p class="subtitle">Поддержка ваших клиентов между сессиями — без вмешательства в терапевтический процесс</p>
+            <div class="not-therapy">
+                <strong>Важно:</strong> InnerNorth не проводит терапию, не ставит диагнозы и не заменяет специалиста. Это инструмент эмоциональной навигации и саморефлексии.
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2>Ключевые возможности для вашей практики</h2>
+            <p class="section-intro">InnerNorth создан как дополнительный инструмент, который помогает клиентам оставаться в контакте с собой между встречами и приходить на сессии более осознанными.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <div class="feature-title">Межсессионный компас</div>
+                    <p class="feature-description">Клиент фиксирует состояния, отмечает триггеры и структурирует переживания между встречами. Вы получаете более организованного и осознанного клиента.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📔</div>
+                    <div class="feature-title">Дневник с мягким отражением</div>
+                    <p class="feature-description">Бот замечает повторения, аккуратно отражает паттерны, но не интерпретирует. Помогает клиенту структурировать материал для сессии.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Подготовка к сессии</div>
+                    <p class="feature-description">Клиент формулирует, что было важно и что хочется обсудить. Вы получаете ясную точку входа и экономите 10–15 минут начала сессии.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💫</div>
+                    <div class="feature-title">Интеграция после сессии</div>
+                    <p class="feature-description">Клиент фиксирует впечатления и инсайты сразу после встречи. На следующей сессии вы видите, что «осело», а что требует дополнительной работы.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-title">Эмоциональный буфер</div>
+                    <p class="feature-description">Бот принимает острые эмоции между сессиями, помогает удержаться и мягко перенаправляет важные темы обратно в терапию. Снижает нагрузку на специалиста.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Смысловые линии клиента</div>
+                    <p class="feature-description">Выделение повторяющихся тем и эмоциональных линий без клинических выводов. Помогает быстрее видеть структуру терапевтической работы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="container">
+            <h2>Чем InnerNorth НЕ является</h2>
+            <p class="section-intro">Мы чётко понимаем границы инструмента и уважаем профессиональную роль специалиста.</p>
+            
+            <div class="not-list">
+                <div class="not-item">
+                    <div class="not-icon">✕</div>
+                    <div>Не берёт на себя роль терапевта</div>
+                </div>
+                <div class="not-item">
+                    <div class="not-icon">✕</div>
+                    <div>Не формулирует интерпретации</div>
+                </div>
+                <div class="not-item">
+                    <div class="not-icon">✕</div>
+                    <div>Не проводит диагностику</div>
+                </div>
+                <div class="not-item">
+                    <div class="not-icon">✕</div>
+                    <div>Не обещает исцеления</div>
+                </div>
+                <div class="not-item">
+                    <div class="not-icon">✕</div>
+                    <div>Не вмешивается в работу специалиста</div>
+                </div>
+                <div class="not-item">
+                    <div class="not-icon">✕</div>
+                    <div>Не формирует перенос</div>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                InnerNorth — это инструмент, который помогает человеку быть более собранным, осознанным и эмоционально организованным между сессиями. Он не лечит, не интерпретирует, не заменяет терапевта. Он — мостик между внутренним миром человека и профессиональной терапией.
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Как это помогает вашей практике</h2>
+            
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-number">01</div>
+                    <div class="benefit-content">
+                        <h3>Повышает качество терапевтической работы</h3>
+                        <p>Клиент приходит более осознанным, приносит структурированный материал, лучше фиксирует состояния. Это ускоряет терапевтический процесс и делает его более эффективным.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">02</div>
+                    <div class="benefit-content">
+                        <h3>Снижает нагрузку и выгорание</h3>
+                        <p>Клиент получает пространство для разгрузки между сессиями. Меньше экстренных сообщений, меньше чувства вины за недоступность, больше энергии для работы.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">03</div>
+                    <div class="benefit-content">
+                        <h3>Помогает «теряющимся» клиентам</h3>
+                        <p>Многие клиенты забывают, что происходило между встречами. InnerNorth помогает удерживать осознанность и приносить на сессию конкретный материал.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">04</div>
+                    <div class="benefit-content">
+                        <h3>Может стать частью терапевтического плана</h3>
+                        <p>Вы можете рекомендовать бота как инструмент для домашней работы: ведение дневника, отслеживание паттернов, подготовка к сессиям.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">05</div>
+                    <div class="benefit-content">
+                        <h3>Поддерживает границы терапии</h3>
+                        <p>Бот активно поддерживает вашу роль специалиста, перенаправляя важные темы в терапию: «Это важная тема для обсуждения со специалистом».</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="container">
+            <h2>Кому особенно полезен InnerNorth</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏳</div>
+                    <div class="feature-title">Клиенты с редкими встречами</div>
+                    <p class="feature-description">Раз в неделю или две недели — длинные интервалы между сессиями требуют дополнительной поддержки.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">😰</div>
+                    <div class="feature-title">Тревожные клиенты</div>
+                    <p class="feature-description">Которые перегружают терапевта сообщениями или теряются в паузах между встречами.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <div class="feature-title">Клиенты с трудностями вербализации</div>
+                    <p class="feature-description">Подростки, люди, не привыкшие говорить о себе — бот помогает подготовиться к сессии.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <div class="feature-title">Начальные стадии терапии</div>
+                    <p class="feature-description">Когда клиент только учится осознавать эмоции и выражать чувства.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-title">Посттерапевтическое сопровождение</div>
+                    <p class="feature-description">После завершения терапии — для интеграции опыта и поддержки достигнутых результатов.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <div class="feature-title">Перерывы в работе</div>
+                    <p class="feature-description">Отпуск терапевта, праздники — бот обеспечивает эмоциональную непрерывность.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Мы открыты к диалогу</h2>
+            <p>В перспективе планируется возможность для специалистов получать доступ к дневникам, выжимкам сессий и другим инструментам, полезным для терапии. Ваша экспертиза поможет сделать InnerNorth максимально полезным и этичным инструментом.</p>
+            <a href="#contact" class="cta-button">Связаться с нами</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Внутренний Север. Инструмент навигации, а не терапия.</p>
+            <p style="margin-top: 8px; font-size: 13px;">Построен на этичной архитектуре с учётом профессиональных границ и безопасности клиентов.</p>
+        </div>
+    </footer>
+</body>
+</html>
